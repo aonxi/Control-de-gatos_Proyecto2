@@ -4,26 +4,6 @@
     ingreso de datos
 =====================*/
 
-setTimeout(() => {
-  let saldoInicial = Number(prompt("Ingrese su saldo inicial"));
-while (!validarSaldo(saldoInicial)) {
-  alert("Monto ingresado no puede ser menor o igual a 0");
-  saldoInicial = Number(prompt("Ingrese su saldo inicial"));
-}
-
-let objetivoAhorro = Number(prompt("Ingrese su objetivo a ahorrar"));
-while(!validarAhorro(saldoInicial, objetivoAhorro)){
-  alert("Monto ingresado no puede ser menor o igual a 0 ni mayor que saldo");
-  objetivoAhorro = Number(prompt("Ingrese su objetivo a ahorrar"));
-}
-
-let opcion = menu();
-while(!validarMenu(opcion)){
-  alert("Debe elegirun numero entre 1 y 5")
-  opcion = menu();
-}
-},2000);
-
 let saldoInicial = Number(prompt("Ingrese su saldo inicial"));
 while (!validarSaldo(saldoInicial)) {
   alert("Monto ingresado no puede ser menor o igual a 0");
@@ -31,16 +11,22 @@ while (!validarSaldo(saldoInicial)) {
 }
 
 let objetivoAhorro = Number(prompt("Ingrese su objetivo a ahorrar"));
-while(!validarAhorro(saldoInicial, objetivoAhorro)){
+while (!validarAhorro(saldoInicial, objetivoAhorro)) {
   alert("Monto ingresado no puede ser menor o igual a 0 ni mayor que saldo");
   objetivoAhorro = Number(prompt("Ingrese su objetivo a ahorrar"));
 }
 
 let opcion = menu();
-while(!validarMenu(opcion)){
+while (!validarMenu(opcion)) {
   alert("Debe elegirun numero entre 1 y 5")
   opcion = menu();
 }
+
+/*=====================
+    Arreglos
+=====================*/
+
+let gastos = [];
 
 /*=====================
     Conjunto de funciones agrupadas
@@ -68,24 +54,68 @@ function menu() {
   `
 
   var opcion = Number(prompt(opciones))
+
   return opcion;
 }
 
+/*=====================
+    Registrar gastos (opcion 1)
+=====================*/
 
+function registrarGasto() {
+
+  let motivo = prompt("Ingrese motivo del gasto");
+  while (!validarString(motivo)) {
+    alert("Debe ingresar un motivo de al menos 3 caracteres.");
+    motivo = prompt("Ingrese motivo del gasto");
+  }
+
+  let monto = Number(prompt("Ingrese monto a gastar"));
+  while (!validarSaldo(monto, saldoInicial)) {
+    alert("debe ingresar el monto a gastar no mayor a su saldo actual.")
+    monto = Number(prompt("Ingrese monto a gastar"));
+  }
+
+  let gasto = {
+    motivo: motivo,
+    monto: monto
+  }
+
+  gastos.push(gasto);
+
+  saldoInicial -= monto 
+
+  alert("Se realizo el gasto de forma exitosa")
+
+}
+
+registrarGasto()
 
 
 /*=====================
     VALIDACIONES
 =====================*/
 
+function validarString(texto) {
 
-function validarSaldo(saldo) {
+  if (texto.trim().length < 3) {
+    return false;
+  }
+  return true;
+}
+
+function validarSaldo(saldo, limite) {
 
   if (saldo <= 0 || isNaN(saldo)) {
     return false;
   }
 
+  if (limite !== undefined && saldo > limite){
+    return false;
+  }
+
   return true;
+
 }
 
 function validarAhorro(saldo, objetivo) {
