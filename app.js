@@ -53,7 +53,7 @@ function menu() {
     5 Salir  
   `
 
-  var opcion = Number(prompt(opciones))
+  let opcion = Number(prompt(opciones));
 
   return opcion;
 }
@@ -83,14 +83,39 @@ function registrarGasto() {
 
   gastos.push(gasto);
 
-  saldoInicial -= monto 
+  saldoInicial -= monto;
 
-  alert("Se realizo el gasto de forma exitosa")
+  alert("Se realizo el gasto de forma exitosa");
 
 }
 
-registrarGasto()
+/*=====================
+    Mostrar gastos (opcion 2)
+=====================*/
 
+function mostrarGastos() {
+
+  if (gastos.length === 0) {
+    alert("No hay gastos registrados");
+    return;
+  }
+
+  let lista = "Lista de gastos: \n\n";
+  let contador = 1;
+
+
+  for (let gasto of gastos) {
+
+    lista +=
+      contador + ": " +
+      gasto.motivo + " -> $" +
+      gasto.monto + "\n";
+    contador++;
+  }
+
+  alert(lista);
+
+}
 
 /*=====================
     VALIDACIONES
@@ -110,7 +135,7 @@ function validarSaldo(saldo, limite) {
     return false;
   }
 
-  if (limite !== undefined && saldo > limite){
+  if (limite !== undefined && saldo > limite) {
     return false;
   }
 
