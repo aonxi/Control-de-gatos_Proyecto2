@@ -10,6 +10,8 @@ while (!validarSaldo(saldoInicial)) {
   saldoInicial = Number(prompt("Ingrese su saldo inicial"));
 }
 
+let saldo = saldoInicial;
+
 let objetivoAhorro = Number(prompt("Ingrese su objetivo a ahorrar"));
 while (!validarAhorro(saldoInicial, objetivoAhorro)) {
   alert("Monto ingresado no puede ser menor o igual a 0 ni mayor que saldo");
@@ -71,7 +73,7 @@ function registrarGasto() {
   }
 
   let monto = Number(prompt("Ingrese monto a gastar"));
-  while (!validarSaldo(monto, saldoInicial)) {
+  while (!validarSaldo(monto, saldo)) {
     alert("debe ingresar el monto a gastar no mayor a su saldo actual.")
     monto = Number(prompt("Ingrese monto a gastar"));
   }
@@ -83,7 +85,7 @@ function registrarGasto() {
 
   gastos.push(gasto);
 
-  saldoInicial -= monto;
+  saldo -= monto;
 
   alert("Se realizo el gasto de forma exitosa");
 
@@ -225,6 +227,33 @@ function filtrarGastos() {
       break;
 
   }
+
+}
+
+/*=====================
+    Mostrar resumen (opcion 4)
+=====================*/
+
+function mostrarResumen() {
+
+  let totalGastado = saldoInicial - saldo;
+  let restante = saldo - objetivoAhorro;
+
+  if (restante <= 0) {
+    restante = "El objetivo de ahorro ya se perdio, intentalo mejor la proxima vez"
+  }
+  else {
+    restante = "$" + restante;
+  }
+
+  let lista =
+    "saldo inicial: $" + saldoInicial + "\n" +
+    "saldo actual: $" + saldo + "\n" +
+    "Total gastado: $" + totalGastado + "\n" +
+    "Objetivo ahorro: $" + objetivoAhorro + "\n" +
+    "Dinero restante cumpliendo el objetivo: " + restante + "\n";
+
+  alert(lista);
 
 }
 
