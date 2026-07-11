@@ -118,6 +118,117 @@ function mostrarGastos() {
 }
 
 /*=====================
+    Filtrar gastos (opcion 3)
+=====================*/
+
+function filtrarGastos() {
+
+  if (gastos.length === 0) {
+    alert("No hay gastos registrados");
+    return;
+  }
+
+  let opcion = Number(prompt("Si desea filtrar por monto menor a N° ingresado elija 1\n" + "Si desea filtrar por monto mayor a N° ingresado elija 2\n" + "Si desea filtrar por montivo elija 3\n"));
+
+  let limite;
+
+  let lista = "";
+
+  if (opcion < 1 || opcion > 3) {
+    alert("Debe ingresar una opcion correcta")
+    return;
+  }
+
+  switch (opcion) {
+
+    case 1:
+      //Monto menor a
+      limite = Number(prompt("Ingrese limite, se mostraran los gastos menores a este"));
+      while (!validarSaldo(limite)) {
+        alert("Debe ingresar un monto mayor a 0");
+        limite = Number(prompt("Ingrese limite, se mostraran los gastos menores a este"));
+      }
+
+      for (let gasto of gastos) {
+
+        if (gasto.monto < limite) {
+          lista += gasto.motivo + "-> $" +
+            gasto.monto + "\n"
+        }
+      }
+
+      if (lista === "") {
+        alert("No se encontraron gastos.")
+      } else {
+        alert(lista);
+      }
+
+      break;
+
+    case 2:
+      //monto mayor a
+
+      limite = Number(prompt("Ingrese limite, se mostraran los gastos mayores a este"));
+
+      while (!validarSaldo(limite)) {
+        alert("Debe ingresar un monto mayor a 0");
+        limite = Number(prompt("Ingrese limite, se mostraran los gastos mayores a este"));
+      }
+
+      for (let gasto of gastos) {
+
+        if (gasto.monto > limite) {
+          lista += gasto.motivo + " -> $" +
+            gasto.monto + "\n";
+        }
+
+      }
+
+      if (lista === "") {
+        alert("No se encontraron gastos.");
+      } else {
+        alert(lista);
+      }
+
+      break;
+
+    case 3:
+      //motivo
+
+      let buscar = prompt("Ingrese el motivo a buscar").trim().toLowerCase();
+
+      while (!validarString(buscar)) {
+        alert("Debe ingresar un motivo válido.");
+        buscar = prompt("Ingrese el motivo a buscar").trim().toLowerCase();
+      }
+
+      for (let gasto of gastos) {
+
+        if (gasto.motivo.toLowerCase().includes(buscar)) {
+          lista += gasto.motivo + " -> $" +
+            gasto.monto + "\n";
+        }
+
+      }
+
+      if (lista === "") {
+        alert("No se encontraron gastos.");
+      } else {
+        alert(lista);
+      }
+
+      break;
+
+    default:
+
+      alert("Opción no válida.");
+      break;
+
+  }
+
+}
+
+/*=====================
     VALIDACIONES
 =====================*/
 
