@@ -18,12 +18,6 @@ while (!validarAhorro(saldoInicial, objetivoAhorro)) {
   objetivoAhorro = Number(prompt("Ingrese su objetivo a ahorrar"));
 }
 
-let opcion = menu();
-while (!validarMenu(opcion)) {
-  alert("Debe elegirun numero entre 1 y 5")
-  opcion = menu();
-}
-
 /*=====================
     Arreglos
 =====================*/
@@ -36,7 +30,30 @@ let gastos = [];
 
 function iniciarPrograma() {
 
-  menu();
+  let opcion;
+
+
+  do {
+
+    opcion = menu();
+
+    while (!validarMenu(opcion)) {
+      alert("Debe elegirun numero entre 1 y 5")
+      opcion = menu();
+    };
+
+    switch (opcion) {
+      case 1: registrarGasto(); break;
+      case 2: mostrarGastos(); break;
+      case 3: filtrarGastos(); break;
+      case 4: mostrarResumen(); break;
+      case 5: salir(); break;
+      default: alert("Error inesperado");
+    }
+
+  } while (opcion !== 5);
+
+
 
 }
 
@@ -258,6 +275,14 @@ function mostrarResumen() {
 }
 
 /*=====================
+    Salir (opcion 5)
+=====================*/
+
+function salir() {
+  alert("Gracias por utilizar este proyecto :)")
+}
+
+/*=====================
     VALIDACIONES
 =====================*/
 
@@ -306,5 +331,8 @@ function validarMenu(opcion) {
 
 }
 
+/*=====================
+    Inicializar el trabajo
+=====================*/
 
-//console.log(saldoInicial, objetivoAhorro, opcion);
+iniciarPrograma();
